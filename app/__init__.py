@@ -10,7 +10,7 @@ load_dotenv()
 # create Flask server (__name__ means the current file)
 app = Flask(__name__)
 
-# decorator registers function as a custom error handler
+# decorator registers function as a custom error handler.
 
 
 @app.errorhandler(404)
