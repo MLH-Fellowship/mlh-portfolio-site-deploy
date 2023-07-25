@@ -2,7 +2,7 @@ from playhouse.shortcuts import model_to_dict
 import datetime
 import os
 # import Flask module
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, jsonify, abort
 from dotenv import load_dotenv
 from peewee import *
 
@@ -78,15 +78,32 @@ def chizy_work():
 def chizy_hobbies():
     return render_template('chizy/chizy_hobbies.html', title="Chizy's Hobbies", url=os.getenv("URL"))
 
-
+@app.route('/timeline')
+def timeline():
+    return render_template('timeline.html', title="Timeline")
+  
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
     name = request.form['name']
     email = request.form['email']
     content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
     return model_to_dict(timeline_post)
+
+    # Validate the name
+    if not name:
+        return jsonify({"error": "Invalid name"}), 400
+
+    # Validate the email
+    if not email or '@' not in email:
+        return jsonify({"error": "Invalid email"}), 400
+
+    # Validate the content
+    if not content:
+        return jsonify({"error": "Invalid content"}), 400
+
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+    return jsonify(model_to_dict(timeline_post))
 
 @app.route('/api/timeline_post', methods=['GET'])
 def get_time_line_post():
@@ -97,11 +114,6 @@ def get_time_line_post():
 TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }
-
-@app.route('/timeline')
-def timeline():
-    return render_template('timeline.html', title="Timeline")
-
 
 # put app in debug mode
 if __name__ == "__main__":
