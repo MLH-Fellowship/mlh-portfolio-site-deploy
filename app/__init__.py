@@ -88,11 +88,9 @@ def timeline():
   
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
-
-    return model_to_dict(timeline_post)
+    name = request.form.get('name')
+    email = request.form.get('email')
+    content = request.form.get('content')
 
     # Validate the name
     if not name:
