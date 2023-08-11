@@ -28,4 +28,6 @@ jobs:
         run: python3-virtualenv/bin/pip install -r requirements.txt
         
       - name: Run Tests
-        run: ./mlh-portfolio-site-deploy/run_test.sh
+        run:
+          chmod +x run_test.sh
+          ./run_test.sh
