@@ -46,7 +46,7 @@
             console.log([...payload])
             
             // send form data as a POST request using fetch API
-            fetch('http://127.0.0.1:5000/api/timeline_post', {
+            fetch('http://143.198.37.26:5000/api/timeline_post', {
                 method: "POST",
                 body: payload,
             })
@@ -64,7 +64,7 @@
     <script>
         function getRequest(){
         // GET request to API
-        fetch('http://127.0.0.1:5000/api/timeline_post')
+        fetch('http://143.198.37.26:5000/api/timeline_post')
             .then(res => {
                 // convert and return the response in JSON
                 return res.json();
