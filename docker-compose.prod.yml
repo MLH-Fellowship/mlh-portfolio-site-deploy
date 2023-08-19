@@ -32,4 +32,4 @@ services:
   #     - myportfolio
 volumes:
   mydatabase:
-  nginx_secrets:
+  # nginx_secrets:
